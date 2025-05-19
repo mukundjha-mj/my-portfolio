@@ -18,13 +18,13 @@ function Home() {
             {/* Banner and Profile Section */}
             <div className='relative w-full'>
                 <img
-                    src="src/assets/banner.png"
+                    src="./src/assets/banner.png"
                     alt="Banner"
                     className='w-full max-h-[300px] object-cover rounded-xl border border-gray-900'
                 />
                 <div className='absolute left-4 bottom-[-40px] sm:bottom-[-50px] w-24 sm:w-32 rounded-full border-4 border-white overflow-hidden shadow-lg'>
                     <img
-                        src="src/assets/my.png"
+                        src="./src/assets/my.png"
                         alt="Profile"
                         className='w-full h-full object-cover'
                     />
