@@ -1,0 +1,12 @@
+#root {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: #fff;  
+}
+
+*{
+  background-color: oklch(.145 0 0);
+  color: #fff;
+}
+
