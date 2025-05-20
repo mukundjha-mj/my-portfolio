@@ -2,6 +2,8 @@ import React from 'react'
 import { FaLinkedin, FaGithub, FaX } from "react-icons/fa6"
 import SplitText from "../Components/SplitText"
 import GithubSection from "../Components/GitHubSection"
+import banner from "../assets/banner.png"
+import profile from "../assets/my.png"
 
 function Home() {
     const linkedin = "https://www.linkedin.com/in/mukundjha-mj/"
@@ -18,13 +20,13 @@ function Home() {
             {/* Banner and Profile Section */}
             <div className='relative w-full'>
                 <img
-                    src="\src\assets\banner.png"
+                    src={banner}
                     alt="Banner"
                     className='w-full max-h-[300px] object-cover rounded-xl border border-gray-900'
                 />
                 <div className='absolute left-4 bottom-[-40px] sm:bottom-[-50px] w-24 sm:w-32 rounded-full border-4 border-white overflow-hidden shadow-lg'>
                     <img
-                        src="src\assets\my.png"
+                        src={profile}
                         alt="Profile"
                         className='w-full h-full object-cover'
                     />
