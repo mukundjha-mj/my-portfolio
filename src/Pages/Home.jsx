@@ -17,10 +17,10 @@ function Home() {
     }
 
     return (
-        <div id="home" className='max-w-7xl mx-auto pt-20 pb-8 min-h-screen flex flex-col gap-6 md:gap-8 border border-gray-500 rounded-2xl leading-relaxed'>
+        <div id="home" className='w-full mx-auto pt-20 pb-8 min-h-screen flex flex-col gap-6 md:gap-8 leading-relaxed'>
 
             {/* Hero Section */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-10 mt-10 sm:mt-16 md:mt-20 px-4 sm:px-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-10 mt-10 sm:mt-16 md:mt-20">
 
                 {/* Text Content */}
                 <div className="flex-1 flex flex-col items-start text-left">
@@ -29,7 +29,7 @@ function Home() {
                     </div>
 
                     <SplitText
-                        text="Mukund Jha"
+                        text="Balmukund Jha"
                         className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight"
                         delay={50}
                         animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
@@ -91,7 +91,7 @@ function Home() {
                     <div className="absolute inset-0 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full blur-2xl opacity-20 animate-pulse"></div>
                     <img
                         src={profile}
-                        alt="Mukund Jha"
+                        alt="Balmukund Jha"
                         className='w-full h-full object-cover rounded-full border-4 border-white/10 shadow-2xl relative z-10'
                     />
                 </div>

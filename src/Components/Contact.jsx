@@ -5,7 +5,7 @@ import { FaEnvelope, FaLinkedin, FaGithub, FaXTwitter } from 'react-icons/fa6';
 const Contact = () => {
     return (
         <div className="w-full py-20 mb-10" id="contact">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}

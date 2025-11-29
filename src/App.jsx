@@ -22,7 +22,7 @@ const App = () => {
           disableRotation={false}
         />
       </div>
-      <div className="relative z-10 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 flex-grow">
+      <div className="relative z-10 w-full mx-auto flex-grow">
         <Navbar />
         <main className="w-full mt-6 sm:mt-12 md:mt-10 ">
           <Routes>

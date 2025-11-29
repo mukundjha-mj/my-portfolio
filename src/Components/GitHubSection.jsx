@@ -114,7 +114,7 @@ const GitHubSection = () => {
 
   return (
     <div
-      className={`${theme.card} ${theme.text} p-4 sm:p-6 rounded-2xl shadow-lg w-full max-w-4xl mx-auto transition-colors duration-300`}
+      className={`${theme.card} ${theme.text} p-4 sm:p-6 rounded-2xl shadow-lg w-full mx-auto transition-colors duration-300`}
     >
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6">
         <div className="flex items-center gap-2">

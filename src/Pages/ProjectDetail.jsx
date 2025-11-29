@@ -10,7 +10,7 @@ const ProjectDetail = () => {
     // This would typically come from a data file or API
     // Using the same data structure as Projects.jsx for now
     const projectData = {
-        "curanet": {
+        "CuraNet": {
             title: "CuraNet – Unified Health Record System",
             tagline: "Centralized platform for lifetime patient medical records",
             description: "CuraNet solves the problem of fragmented medical history by providing a unified, patient-centric platform. It allows hospitals to upload records and patients to grant temporary, secure access to doctors via QR codes.",
@@ -27,39 +27,36 @@ const ProjectDetail = () => {
             github: "https://github.com/mukundjha-mj/CuraNet",
             live: "https://curanet-demo.vercel.app"
         },
-        // Add other projects here...
-        "jarvis-lite": {
-            title: "Jarvis Lite – Voice Assistant",
-            tagline: "AI-powered voice automation for desktop",
-            description: "A lightweight voice assistant that runs locally and automates daily tasks using natural language processing.",
-            problem: "Most voice assistants are cloud-heavy and limited to basic queries. I wanted a tool that could actually control my PC and execute complex scripts.",
-            solution: "Combined OpenAI's API for intent recognition with Python's `os` and `subprocess` modules. The system listens for a wake word, records the command, transcribes it, determines the intent, and executes the corresponding Python function.",
+        "secondBrain": {
+            title: "Second Brain",
+            tagline: "A personal knowledge management system",
+            description: "A digital archive of my learnings, notes, and resources.",
+            problem: "Information overload makes it hard to retain and retrieve key learnings.",
+            solution: "Built a structured knowledge base with tagging and search capabilities.",
             features: [
-                "Wake Word Detection: Always listening for 'Jarvis'.",
-                "Natural Language Commands: 'Open my coding setup' opens VS Code, Spotify, and Chrome.",
-                "System Control: Adjust volume, brightness, and launch apps.",
-                "LLM Integration: Can answer general queries using GPT-3.5."
+                "Markdown Support: Write notes in markdown.",
+                "Tagging System: Organize content by topics.",
+                "Search: Fast full-text search."
             ],
-            tech: ["Python", "OpenAI API", "SpeechRecognition", "PyAutoGUI", "Tkinter"],
-            challenges: "Latency was an issue with cloud STT. I optimized it by using a local Whisper model for transcription, reducing response time by 50%.",
-            github: "https://github.com/mukundjha-mj/Jarvis-Lite",
+            tech: ["React", "Node.js", "MongoDB"],
+            challenges: "Implementing efficient search across a growing database of notes.",
+            github: "https://github.com/mukundjha-mj/secondBrain",
             live: null
         },
-        "question-gen": {
-            title: "AI Question Paper Generator",
-            tagline: "Automated exam creation tool for teachers",
-            description: "An NLP-based tool that scans syllabus text and generates balanced question papers with answer keys.",
-            problem: "Teachers spend hours manually creating question papers, often struggling to balance difficulty levels and topic coverage.",
-            solution: "Built a pipeline that uses NLTK to extract keywords and named entities. It then uses templates to generate MCQs, Fill-in-the-blanks, and Short Answer questions. A difficulty scoring algorithm ensures the paper meets the desired distribution (e.g., 30% easy, 50% medium, 20% hard).",
+        "Microservices-Uber-Backend": {
+            title: "Uber Backend (Microservices)",
+            tagline: "Scalable backend architecture for a ride-sharing app",
+            description: "A simulation of Uber's backend using microservices architecture.",
+            problem: "Monolithic architectures struggle to scale with high concurrent user demand in ride-sharing apps.",
+            solution: "Decomposed the system into microservices (Auth, Ride, Driver, Notification) communicating via a message broker.",
             features: [
-                "Text Analysis: Extracts key concepts from PDF/Text input.",
-                "Difficulty Balancing: Automatically adjusts question mix.",
-                "PDF Export: Generates a formatted printable PDF.",
-                "Answer Key Generation: Creates a separate key for grading."
+                "Microservices Architecture: Independent services for scalability.",
+                "Real-time Updates: Socket.io for driver tracking.",
+                "Load Balancing: Nginx for traffic distribution."
             ],
-            tech: ["React", "Flask", "Python", "NLTK", "PDFKit"],
-            challenges: "Generating meaningful distractors for MCQs was hard. I used WordNet to find antonyms and related words to create plausible wrong answers.",
-            github: "https://github.com/mukundjha-mj/QuestionGen",
+            tech: ["Node.js", "Express", "RabbitMQ", "Docker", "Redis"],
+            challenges: "Managing distributed state and ensuring data consistency across services.",
+            github: "https://github.com/mukundjha-mj/Microservices-Uber-Backend",
             live: null
         }
     };

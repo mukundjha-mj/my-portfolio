@@ -5,10 +5,10 @@ import { SiVite, SiTailwindcss, SiFramer } from 'react-icons/si';
 const Footer = () => {
     return (
         <footer className="w-full border-t border-white/10 bg-black/40 backdrop-blur-sm mt-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                     <div>
-                        <h3 className="text-xl font-bold mb-4">Mukund Jha</h3>
+                        <h3 className="text-xl font-bold mb-4">Balmukund Jha</h3>
                         <p className="text-gray-400 max-w-sm">
                             Building digital experiences with a focus on performance, accessibility, and design.
                         </p>
@@ -42,7 +42,7 @@ const Footer = () => {
 
                 <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
                     <p className="text-gray-500 text-sm">
-                        © {new Date().getFullYear()} Mukund Jha. All rights reserved.
+                        © {new Date().getFullYear()} Balmukund Jha. All rights reserved.
                     </p>
                     <div className="flex gap-6 text-sm text-gray-500">
                         <a href="https://github.com/mukundjha-mj/my-portfolio" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2">

@@ -27,8 +27,8 @@ const NavBar = () => {
     };
 
     return (
-        <nav className="w-full py-4 px-4 sm:px-6 lg:px-8 fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto">
+        <nav className="w-full py-4 fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-sm">
+            <div className="w-full mx-auto">
                 {/* Mobile menu button */}
                 <div className="flex justify-end md:hidden">
                     <button
