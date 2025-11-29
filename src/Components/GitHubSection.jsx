@@ -5,8 +5,6 @@ import {
   CalendarDays,
   Users,
   GitPullRequest,
-  Moon,
-  Sun,
   Github
 } from 'lucide-react';
 import * as Select from '@radix-ui/react-select';
@@ -20,10 +18,10 @@ const GitHubSection = () => {
   });
 
   const [year, setYear] = useState(new Date().getFullYear());
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode] = useState(true);
   const [calendarData, setCalendarData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
 
   const username = 'mukundjha-mj';
 
@@ -37,10 +35,10 @@ const GitHubSection = () => {
           throw new Error(`API response status: ${res.status}`);
         }
         const json = await res.json();
-        
+
         if (json.contributions && json.contributions.length > 0) {
           setCalendarData(json.contributions);
-          
+
           // Update contributions count from calendar data
           const totalContributions = json.contributions.reduce((total, day) => total + day.count, 0);
           setStats(prev => ({
@@ -116,12 +114,12 @@ const GitHubSection = () => {
 
   return (
     <div
-      className={`${theme.card} ${theme.text} p-6 rounded-2xl shadow-lg w-full max-w-4xl mx-auto transition-colors duration-300`}
+      className={`${theme.card} ${theme.text} p-4 sm:p-6 rounded-2xl shadow-lg w-full max-w-4xl mx-auto transition-colors duration-300`}
     >
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6">
         <div className="flex items-center gap-2">
           <Github size={24} />
-          <h2 className="text-xl font-bold">GitHub Contributions</h2>
+          <h2 className="text-lg sm:text-xl font-bold">GitHub Contributions</h2>
         </div>
         <div className="flex items-center gap-4">
           <Select.Root value={String(year)} onValueChange={(v) => setYear(Number(v))}>
@@ -130,13 +128,13 @@ const GitHubSection = () => {
               <span className="text-xs ml-1">▼</span>
             </Select.Trigger>
             <Select.Content className={`${theme.selectContent} ${theme.text} rounded-md ${theme.border} border mt-1 z-10`}>
-              <Select.Viewport>
+              <Select.Viewport className='h-[80px]'>
                 {[...Array(5)].map((_, i) => {
                   const y = new Date().getFullYear() - i;
                   return (
-                    <Select.Item 
-                      key={y} 
-                      value={String(y)} 
+                    <Select.Item
+                      key={y}
+                      value={String(y)}
                       className={`px-3 py-1.5 cursor-pointer ${theme.hover} outline-none`}
                     >
                       <Select.ItemText>{y}</Select.ItemText>
@@ -146,18 +144,10 @@ const GitHubSection = () => {
               </Select.Viewport>
             </Select.Content>
           </Select.Root>
-
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className={`p-2 rounded-full ${theme.border} border hover:opacity-80 transition-opacity`}
-            aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-          >
-            {darkMode ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
         </div>
       </div>
 
-      <div className="overflow-x-auto overflow-y-hidden pb-2">
+      <div className="overflow-x-auto overflow-y-hidden pb-2 -mx-4 sm:mx-0 px-4 sm:px-0">
         {loading ? (
           <div className="flex justify-center items-center h-32">
             <div className="animate-pulse text-sm">Loading contribution data...</div>
@@ -171,9 +161,9 @@ const GitHubSection = () => {
                 dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
               }}
               level={5}
-              blockSize={12}
-              blockMargin={4}
-              fontSize={12}
+              blockSize={10}
+              blockMargin={3}
+              fontSize={10}
               showWeekdayLabels={false}
               hideColorLegend={false}
               hideMonthLabels={false}
@@ -183,7 +173,6 @@ const GitHubSection = () => {
                 months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 totalCount: '{{count}} contributions in {{year}}'
               }}
-              
             />
           </div>
         ) : (
@@ -193,7 +182,7 @@ const GitHubSection = () => {
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
         <div className={`${theme.statBg} p-3 rounded-lg ${theme.border} border flex items-center gap-3`}>
           <div className={`p-2 rounded-full ${darkMode ? 'bg-green-900/30' : 'bg-green-100'}`}>
             <CalendarDays size={18} className={darkMode ? 'text-green-400' : 'text-green-600'} />
@@ -203,7 +192,7 @@ const GitHubSection = () => {
             <div className="text-xs opacity-80">Contributions</div>
           </div>
         </div>
-        
+
         <div className={`${theme.statBg} p-3 rounded-lg ${theme.border} border flex items-center gap-3`}>
           <div className={`p-2 rounded-full ${darkMode ? 'bg-blue-900/30' : 'bg-blue-100'}`}>
             <Users size={18} className={darkMode ? 'text-blue-400' : 'text-blue-600'} />
@@ -213,7 +202,7 @@ const GitHubSection = () => {
             <div className="text-xs opacity-80">Followers</div>
           </div>
         </div>
-        
+
         <div className={`${theme.statBg} p-3 rounded-lg ${theme.border} border flex items-center gap-3`}>
           <div className={`p-2 rounded-full ${darkMode ? 'bg-purple-900/30' : 'bg-purple-100'}`}>
             <GitPullRequest size={18} className={darkMode ? 'text-purple-400' : 'text-purple-600'} />
@@ -224,13 +213,13 @@ const GitHubSection = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="mt-4 text-xs text-center opacity-70">
-        <a 
+        <a
           href={`https://github.com/${username}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline hover:opacity-100"
+          className="underline hover:opacity-100 transition-opacity duration-200"
         >
           @{username}
         </a>

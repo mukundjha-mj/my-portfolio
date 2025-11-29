@@ -66,14 +66,15 @@ const SplitText = ({
                             .slice(0, wordIndex)
                             .reduce((acc, w) => acc + w.length, 0) + letterIndex;
 
+                        const AnimatedSpan = animated.span;
                         return (
-                            <animated.span
+                            <AnimatedSpan
                                 key={index}
                                 style={springs[index]}
                                 className="inline-block transform transition-opacity will-change-transform"
                             >
                                 {letter}
-                            </animated.span>
+                            </AnimatedSpan>
                         );
                     })}
                     <span style={{ display: 'inline-block', width: '0.3em' }}>&nbsp;</span>
