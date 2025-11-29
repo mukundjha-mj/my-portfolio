@@ -17,7 +17,7 @@ function Home() {
     }
 
     return (
-        <div id="home" className='w-full mx-auto pt-20 pb-8 min-h-screen flex flex-col gap-6 md:gap-8 border border-gray-500 rounded-2xl'>
+        <div id="home" className='max-w-7xl mx-auto pt-20 pb-8 min-h-screen flex flex-col gap-6 md:gap-8 border border-gray-500 rounded-2xl leading-relaxed'>
 
             {/* Hero Section */}
             <div className="flex flex-col md:flex-row items-center justify-between gap-10 mt-10 sm:mt-16 md:mt-20 px-4 sm:px-8">
