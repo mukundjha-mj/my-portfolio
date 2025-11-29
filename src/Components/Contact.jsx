@@ -4,38 +4,46 @@ import { FaEnvelope, FaLinkedin, FaGithub, FaXTwitter } from 'react-icons/fa6';
 
 const Contact = () => {
     return (
-        <div className="w-full py-12 mb-10" id="contact">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Get In Touch</h2>
-
-            <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="w-full py-20 mb-10" id="contact">
+            <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     className="flex flex-col justify-center"
                 >
-                    <h3 className="text-2xl font-semibold mb-4">Let's Connect</h3>
-                    <p className="text-gray-400 mb-8">
-                        I'm currently open to new opportunities and collaborations.
-                        Whether you have a question or just want to say hi, feel free to reach out!
+                    <h2 className="text-3xl md:text-4xl font-bold mb-6">Let's Build Something</h2>
+                    <p className="text-gray-300 mb-8 text-lg leading-relaxed">
+                        I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
                     </p>
 
-                    <div className="flex flex-col gap-4">
-                        <a href="mailto:mukundjha.mj@gmail.com" className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10">
-                            <FaEnvelope className="text-xl text-blue-400" />
-                            <span>mukundjha.mj@gmail.com</span>
+                    <div className="space-y-4 mb-8">
+                        <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">I'm open to:</h3>
+                        <ul className="space-y-2 text-gray-300">
+                            <li className="flex items-center gap-2">
+                                <span className="text-green-400">✓</span> Internship / Entry-level SDE roles
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-green-400">✓</span> Freelance full-stack projects
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-green-400">✓</span> Open-source collaborations
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div className="flex gap-4">
+                        <a href="mailto:mukundjha.mj@gmail.com" className="p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 hover:text-blue-400 transition-colors">
+                            <FaEnvelope size={24} />
                         </a>
-                        <a href="https://www.linkedin.com/in/mukundjha-mj/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10">
-                            <FaLinkedin className="text-xl text-blue-600" />
-                            <span>LinkedIn</span>
+                        <a href="https://www.linkedin.com/in/mukundjha-mj/" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 hover:text-blue-600 transition-colors">
+                            <FaLinkedin size={24} />
                         </a>
-                        <a href="https://github.com/mukundjha-mj" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10">
-                            <FaGithub className="text-xl" />
-                            <span>GitHub</span>
+                        <a href="https://github.com/mukundjha-mj" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 hover:text-white transition-colors">
+                            <FaGithub size={24} />
                         </a>
-                        <a href="https://x.com/mukundjha_mj" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10">
-                            <FaXTwitter className="text-xl" />
-                            <span>X (Twitter)</span>
+                        <a href="https://x.com/mukundjha_mj" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 hover:text-white transition-colors">
+                            <FaXTwitter size={24} />
                         </a>
                     </div>
                 </motion.div>

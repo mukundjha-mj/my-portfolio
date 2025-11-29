@@ -57,8 +57,8 @@ const NavBar = () => {
                 {/* Desktop and Mobile Menu */}
                 <div
                     className={`${isMenuOpen
-                            ? 'opacity-100 translate-y-0'
-                            : 'opacity-0 -translate-y-4 pointer-events-none'
+                        ? 'opacity-100 translate-y-0'
+                        : 'opacity-0 -translate-y-4 pointer-events-none'
                         } md:opacity-100 md:translate-y-0 md:pointer-events-auto transition-all duration-300 ease-in-out absolute md:relative top-full md:top-auto left-0 right-0 bg-black/95 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none`}
                 >
                     <ul className="flex flex-col md:flex-row items-center justify-center gap-8 py-4 md:py-0 space-y-4 md:space-y-0 md:space-x-8">
@@ -105,6 +105,16 @@ const NavBar = () => {
                             >
                                 Contact
                             </button>
+                        </li>
+                        <li>
+                            <a
+                                href="/resume.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-4 py-2 bg-white text-black font-medium rounded-md hover:bg-gray-200 transition-colors text-lg md:text-base"
+                            >
+                                Resume
+                            </a>
                         </li>
                     </ul>
                 </div>
