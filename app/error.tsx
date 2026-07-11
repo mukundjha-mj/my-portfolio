@@ -15,7 +15,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col items-start px-4 py-24 sm:px-6">
+    <div className="mx-auto flex max-w-2xl flex-col items-start px-4 py-24 sm:px-6">
       <h2 className="text-xl font-semibold text-foreground">
         Something went wrong
       </h2>

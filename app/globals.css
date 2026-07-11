@@ -6,12 +6,12 @@
 :root {
   --background: #ffffff;
   --surface: #ffffff;
-  --surface-2: #f4f4f5;
-  --foreground: #18181b;
-  --muted: #52525b;
-  --faint: #71717a;
-  --border: rgba(0, 0, 0, 0.08);
-  --border-strong: rgba(0, 0, 0, 0.14);
+  --surface-2: #f5f5f5;
+  --foreground: #0a0a0a;
+  --muted: #525252;
+  --faint: #737373;
+  --border: #e5e5e5;
+  --border-strong: #d4d4d4;
   --accent: #2563eb;
   --accent-fg: #ffffff;
   --heat-0: #ebedf0;
@@ -22,14 +22,16 @@
 }
 
 .dark {
-  --background: #0a0a0a;
-  --surface: #101012;
-  --surface-2: #17171a;
-  --foreground: #ededed;
-  --muted: #a1a1aa;
-  --faint: #71717a;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
+  /* Tokens matched to the reference site (abhisharma.dev): a warmer,
+     lifted near-black rather than pure #000. */
+  --background: #121212;
+  --surface: #171717;
+  --surface-2: #262626;
+  --foreground: #fafafa;
+  --muted: #a1a1a1;
+  --faint: #737373;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.15);
   --accent: #3b82f6;
   --accent-fg: #ffffff;
   --heat-0: #161b22;
@@ -57,6 +59,7 @@
   --color-heat-4: var(--heat-4);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-space: var(--font-space);
 }
 
 html {
@@ -68,7 +71,24 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  letter-spacing: -0.011em;
+}
+
+/* Headings use Space Grotesk (matched to the reference site) */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-space), var(--font-sans), ui-sans-serif, system-ui,
+    sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Monospace runs read better with a hair more breathing room */
+.font-mono {
+  letter-spacing: 0;
 }
 
 /* Thin, subtle scrollbar to match the minimal dark aesthetic */
@@ -76,3 +96,6 @@ body {
   scrollbar-width: thin;
   scrollbar-color: var(--border-strong) transparent;
 }
+
+/* Scroll + load entrance animations are handled by <Reveal> (JS-driven,
+   IntersectionObserver) so they can trigger as sections enter the viewport. */

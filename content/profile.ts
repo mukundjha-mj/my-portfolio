@@ -65,7 +65,9 @@ export const profile = {
   schoolLine: "MCA @ VIT Vellore, graduating 2026",
 
   // ── Contribution graph ──────────────────────────────────────
-  contributions: { count: 420, year: 2026 },
+  // The heat-map is now pulled live from GitHub via `githubUsername`.
+  // `year` is still used for the footer copyright line.
+  contributions: { year: 2026 },
   githubUsername: "mukundjha-mj",
 
   // ── Socials ─────────────────────────────────────────────────

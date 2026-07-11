@@ -1,11 +1,5 @@
 import { profile } from "@/content/profile";
-
-const WEEKS = 53;
-const DAYS = 7;
-const MONTHS = [
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
-];
+import { getContributions } from "@/lib/github";
 
 const HEAT = [
   "bg-heat-0",
@@ -15,46 +9,59 @@ const HEAT = [
   "bg-heat-4",
 ];
 
-// Deterministic pseudo-random level (0–4) so server/client render identically
-// and we avoid Math.random (flagged by this Next.js version).
-function levelFor(i: number): number {
-  const x = Math.sin(i * 12.9898) * 43758.5453;
-  const f = x - Math.floor(x);
-  if (f < 0.5) return 0;
-  if (f < 0.68) return 1;
-  if (f < 0.84) return 2;
-  if (f < 0.94) return 3;
-  return 4;
-}
+const WEEKDAYS = ["", "Mon", "", "Wed", "", "Fri", ""];
 
-export function ContributionGraph() {
-  const cells = Array.from({ length: WEEKS * DAYS }, (_, i) => levelFor(i));
+export async function ContributionGraph() {
+  const { total, weeks, months } = await getContributions(
+    profile.githubUsername,
+  );
 
   return (
     <section className="w-full">
       <div className="overflow-x-auto pb-1">
-        <div className="min-w-[680px]">
+        <div className="inline-block min-w-full">
           {/* Month labels */}
-          <div className="flex justify-between px-0.5 text-[10px] text-faint">
-            {MONTHS.map((m, idx) => (
-              <span key={`${m}-${idx}`}>{m}</span>
+          <div className="flex pl-7 text-[10px] text-faint">
+            {months.map((m, i) => (
+              <span
+                key={i}
+                className="w-[13px] shrink-0 text-left"
+              >
+                {m.label}
+              </span>
             ))}
           </div>
 
-          {/* Grid: 7 rows, filled column-by-column */}
-          <div className="mt-1.5 grid grid-flow-col grid-rows-7 gap-[3px]">
-            {cells.map((level, i) => {
-              const count = level === 0 ? 0 : level * 3 + (i % 4);
-              return (
-                <span
-                  key={i}
-                  title={
-                    count === 0 ? "No contributions" : `${count} contributions`
-                  }
-                  className={`h-[11px] w-[11px] rounded-[2px] ${HEAT[level]} transition-transform hover:scale-125`}
-                />
-              );
-            })}
+          <div className="mt-1 flex gap-[3px]">
+            {/* Weekday labels */}
+            <div className="mr-1 flex w-6 flex-col gap-[3px] text-[9px] leading-[10px] text-faint">
+              {WEEKDAYS.map((d, i) => (
+                <span key={i} className="h-[10px]">
+                  {d}
+                </span>
+              ))}
+            </div>
+
+            {/* Week columns */}
+            <div className="flex gap-[3px]">
+              {weeks.map((week, wi) => (
+                <div key={wi} className="flex flex-col gap-[3px]">
+                  {week.map((day, di) => (
+                    <span
+                      key={di}
+                      title={
+                        day.date
+                          ? `${day.count} contribution${day.count === 1 ? "" : "s"} on ${day.date}`
+                          : undefined
+                      }
+                      className={`h-[10px] w-[10px] rounded-[2px] ${
+                        day.date ? HEAT[day.level] : "bg-transparent"
+                      } transition-transform hover:scale-125`}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -62,15 +69,13 @@ export function ContributionGraph() {
       {/* Footer: total + legend */}
       <div className="mt-3 flex items-center justify-between text-xs text-muted">
         <p>
-          <span className="font-semibold text-foreground">
-            {profile.contributions.count}
-          </span>{" "}
-          contributions in {profile.contributions.year}
+          <span className="font-semibold text-foreground">{total}</span>{" "}
+          contributions in the last year
         </p>
         <div className="flex items-center gap-1">
           <span className="mr-1 text-faint">Less</span>
           {HEAT.map((c) => (
-            <span key={c} className={`h-[11px] w-[11px] rounded-[2px] ${c}`} />
+            <span key={c} className={`h-[10px] w-[10px] rounded-[2px] ${c}`} />
           ))}
           <span className="ml-1 text-faint">More</span>
         </div>

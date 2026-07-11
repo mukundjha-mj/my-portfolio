@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { auth } from "@/auth";
 import { getEntries } from "@/lib/guestbook";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { GuestbookForm } from "@/components/guestbook/GuestbookForm";
 import { GuestbookList } from "@/components/guestbook/GuestbookList";
 import { SignIn } from "@/components/guestbook/SignIn";
+import { Reveal } from "@/components/ui/Reveal";
 import { profile } from "@/content/profile";
 
 export const metadata: Metadata = {
@@ -17,18 +19,22 @@ export default async function GuestbookPage() {
   );
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
-      <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-        Guestbook<span className="text-accent">.</span>
-      </h1>
-      <p className="mt-2 max-w-xl text-sm leading-6 text-muted">
-        Leave a message, a hello, or where you&apos;re visiting from. Sign in
-        with GitHub or Google to post.
-      </p>
+    <div className="mx-auto flex max-w-2xl flex-col gap-8 px-4 py-10 sm:px-6 sm:py-12">
+      <Breadcrumb current="Guestbook" />
 
-      <div className="mt-8">
-        {configured ? <GuestbookContent /> : <SetupNotice />}
-      </div>
+      <Reveal>
+        <div>
+          <h1 className="font-space text-3xl font-semibold tracking-tight text-foreground">
+            Guestbook<span className="text-accent">.</span>
+          </h1>
+          <p className="mt-2 max-w-xl text-sm leading-6 text-muted">
+            Leave a message, a hello, or where you&apos;re visiting from. Sign
+            in with GitHub or Google to post.
+          </p>
+        </div>
+      </Reveal>
+
+      {configured ? <GuestbookContent /> : <SetupNotice />}
     </div>
   );
 }
@@ -39,7 +45,18 @@ async function GuestbookContent() {
     return (
       <>
         {session?.user ? <GuestbookForm user={session.user} /> : <SignIn />}
-        <GuestbookList entries={entries} />
+
+        <section>
+          <div className="flex items-baseline justify-between">
+            <h2 className="font-space text-xl font-semibold tracking-tight text-foreground">
+              Notes<span className="text-accent">.</span>
+            </h2>
+            <span className="font-mono text-xs text-faint">
+              {entries.length} signed
+            </span>
+          </div>
+          <GuestbookList entries={entries} />
+        </section>
       </>
     );
   } catch {
@@ -47,7 +64,8 @@ async function GuestbookContent() {
       <div className="rounded-xl border border-red-500/30 bg-red-500/5 p-5 text-sm text-muted">
         Couldn&apos;t reach the database. Check your{" "}
         <code className="font-mono text-foreground">DATABASE_URL</code> and that
-        migrations have run (<code className="font-mono">bunx prisma migrate dev</code>).
+        migrations have run (
+        <code className="font-mono">bunx prisma migrate dev</code>).
       </div>
     );
   }

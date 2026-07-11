@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { BadgeCheck, MapPin, Mail, GraduationCap, Code2, Trophy } from "lucide-react";
+import { Avatar } from "@/components/ui/Avatar";
 import { profile } from "@/content/profile";
 
 export function Hero() {
@@ -7,16 +7,9 @@ export function Hero() {
     <section className="w-full">
       {/* Name + avatar */}
       <div className="flex items-center gap-5 sm:gap-6">
-        <Image
-          src={profile.photo}
-          alt={profile.name}
-          width={112}
-          height={112}
-          preload
-          className="h-24 w-24 shrink-0 rounded-full object-cover ring-1 ring-border sm:h-28 sm:w-28"
-        />
+        <Avatar size={112} priority className="h-24 w-24 sm:h-28 sm:w-28" />
         <div>
-          <h1 className="flex flex-wrap items-center gap-x-2 gap-y-1 text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
+          <h1 className="flex flex-wrap items-center gap-x-2 gap-y-1 font-space text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
             <span className="font-normal text-muted">Hi, I&apos;m</span>
             <span className="font-semibold">{profile.firstName}</span>
             {profile.verified && (

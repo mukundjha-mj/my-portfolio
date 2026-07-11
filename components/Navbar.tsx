@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa6";
 import { ThemeToggle } from "./ThemeToggle";
+import { Avatar } from "@/components/ui/Avatar";
 import { profile } from "@/content/profile";
 
 const NAV_LINKS = [
@@ -41,13 +41,7 @@ export function Navbar() {
         }`}
       >
         <Link href="/" aria-label="Home" className="shrink-0 pl-1">
-          <Image
-            src={profile.photo}
-            alt={profile.name}
-            width={30}
-            height={30}
-            className="h-[30px] w-[30px] rounded-full object-cover ring-1 ring-border"
-          />
+          <Avatar size={30} />
         </Link>
 
         <ul className="flex items-center gap-0.5 text-sm">
