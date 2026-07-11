@@ -1,0 +1,24 @@
+---
+title: "Why I Reach for Postgres First"
+date: "2026-05-02"
+summary: "It's not just a database — it's a queue, a cache, a search engine, and a JSON store when you need it."
+---
+
+People ask why I default to PostgreSQL for almost everything. The honest answer:
+it does 90% of what teams reach for extra infrastructure to do — with one
+operational surface to understand.
+
+## One database, many jobs
+
+- **Queues:** `SELECT ... FOR UPDATE SKIP LOCKED` gives you a solid job queue.
+- **JSON:** `jsonb` columns handle semi-structured data without a second store.
+- **Search:** full-text search covers most product needs before Elasticsearch.
+- **Analytics:** window functions and CTEs replace a lot of app-side code.
+
+## Boring is a feature
+
+Postgres has been battle-tested for decades. The failure modes are documented,
+the tooling is mature, and the community answers are usually correct.
+
+When you genuinely outgrow it, you'll know — and you'll have real numbers to
+justify the next piece of infrastructure.
