@@ -7,7 +7,7 @@ export function Hero() {
     <section className="w-full">
       {/* Name + avatar */}
       <div className="flex items-center gap-5 sm:gap-6">
-        <Avatar size={112} priority className="h-24 w-24 sm:h-28 sm:w-28" />
+        <Avatar size={100} priority className="h-24 w-24 sm:h-28 sm:w-28" />
         <div>
           <h1 className="flex flex-wrap items-center gap-x-2 gap-y-1 font-space text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
             <span className="font-normal text-muted">Hi, I&apos;m</span>

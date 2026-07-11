@@ -27,7 +27,7 @@ export function Avatar({
         fill
         sizes={`${size}px`}
         preload={priority}
-        className="scale-[1.1] object-cover origin-[50%_0]"
+        className="scale-[1.5]  origin-[50%_0] "
       />
     </span>
   );
