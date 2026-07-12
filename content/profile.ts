@@ -44,14 +44,14 @@ export const profile = {
   verified: true,
   siteUrl: "https://mukundjha.dev",
   metaDescription:
-    "Backend-focused full-stack developer building scalable systems, APIs, and products that ship.",
+    "Backend-focused full-stack developer specializing in scalable APIs, distributed systems, and production-ready web applications.",
 
   // ── Hero ────────────────────────────────────────────────────
   photo: "/me.svg",
   tagline:
     "Backend-focused full-stack developer who loves building scalable systems and shipping real products.",
   intro:
-    "MCA student at VIT Vellore building backend systems that actually ship. Currently a Web Developer Intern at The Dark Store India, working on e-commerce backends, third-party API integrations, and performance.",
+    "MCA graduate from VIT Vellore building backend systems that actually ship. Currently a Web Developer at The Dark Store India, working on e-commerce backends, third-party API integrations, and performance.",
 
   // Monospace fact list under the intro
   currentRole: "Web Developer Intern",
@@ -62,7 +62,7 @@ export const profile = {
   phone: "+91 82944 95929",
   // Optional highlight line (set to null to hide). e.g. a ranking or credential.
   highlight: null as { label: string; url: string } | null,
-  schoolLine: "MCA @ VIT Vellore, graduating 2026",
+  schoolLine: "MCA • VIT Vellore (2026)",
 
   // ── Contribution graph ──────────────────────────────────────
   // The heat-map is now pulled live from GitHub via `githubUsername`.
