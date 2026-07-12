@@ -3,14 +3,23 @@
 import { useActionState, useEffect, useRef, useState, useTransition } from "react";
 import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
-import { UserRound, Reply as ReplyIcon, Trash2, Send } from "lucide-react";
-import { addReply, deleteEntry, type GuestbookState } from "@/lib/guestbook";
+import {
+  UserRound,
+  Reply as ReplyIcon,
+  Trash2,
+  Send,
+  Pencil,
+  X,
+} from "lucide-react";
+import { addReply, deleteEntry, editEntry, type GuestbookState } from "@/lib/guestbook";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 
 export type Entry = {
   id: string;
   body: string;
   createdAt: Date;
+  editedAt: Date | null;
+  authorId: string;
   authorName: string | null;
   authorImage: string | null;
   deleted: boolean;
@@ -66,10 +75,15 @@ export function GuestbookEntryItem({
   canReply: boolean;
 }) {
   const { user } = useUser();
+  const isOwn = signedIn && user?.id === entry.authorId;
+
   const [replying, setReplying] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [deleted, setDeleted] = useState(entry.deleted);
   const [deletedByName, setDeletedByName] = useState(entry.deletedByName);
+  const [body, setBody] = useState(entry.body);
+  const [editedAt, setEditedAt] = useState(entry.editedAt);
   const [isDeleting, startDelete] = useTransition();
 
   function confirmDelete() {
@@ -93,6 +107,7 @@ export function GuestbookEntryItem({
           </span>
           <span className="font-mono text-[11px] text-faint">
             {timeAgo(new Date(entry.createdAt))}
+            {!deleted && editedAt && " · edited"}
           </span>
         </div>
 
@@ -100,13 +115,24 @@ export function GuestbookEntryItem({
           <p className="mt-0.5 text-sm italic leading-6 text-faint">
             This message was deleted by {deletedByName ?? "someone"}.
           </p>
+        ) : editing ? (
+          <EditForm
+            entryId={entry.id}
+            initialBody={body}
+            onSaved={(newBody) => {
+              setBody(newBody);
+              setEditedAt(new Date());
+              setEditing(false);
+            }}
+            onCancel={() => setEditing(false)}
+          />
         ) : (
           <p className="mt-0.5 break-words text-sm leading-6 text-muted">
-            {entry.body}
+            {body}
           </p>
         )}
 
-        {!deleted && signedIn && (
+        {!deleted && !editing && signedIn && (
           <div className="mt-1.5 flex items-center gap-3">
             {canReply && (
               <button
@@ -116,6 +142,16 @@ export function GuestbookEntryItem({
               >
                 <ReplyIcon className="h-3.5 w-3.5" />
                 Reply
+              </button>
+            )}
+            {isOwn && (
+              <button
+                type="button"
+                onClick={() => setEditing(true)}
+                className="inline-flex items-center gap-1 text-xs text-faint transition-colors hover:text-foreground"
+              >
+                <Pencil className="h-3.5 w-3.5" />
+                Edit
               </button>
             )}
             <button
@@ -145,6 +181,61 @@ export function GuestbookEntryItem({
         onCancel={() => setConfirmingDelete(false)}
       />
     </li>
+  );
+}
+
+function EditForm({
+  entryId,
+  initialBody,
+  onSaved,
+  onCancel,
+}: {
+  entryId: string;
+  initialBody: string;
+  onSaved: (newBody: string) => void;
+  onCancel: () => void;
+}) {
+  const initial: GuestbookState = {};
+  const [state, formAction, pending] = useActionState(editEntry, initial);
+  const [value, setValue] = useState(initialBody);
+
+  useEffect(() => {
+    if (state.success) onSaved(value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.success]);
+
+  return (
+    <form action={formAction} className="mt-1 flex flex-col gap-1.5">
+      <input type="hidden" name="entryId" value={entryId} />
+      <div className="flex gap-2">
+        <input
+          name="message"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          maxLength={500}
+          required
+          autoComplete="off"
+          className="flex-1 rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground outline-none placeholder:text-faint focus:border-border-strong"
+        />
+        <button
+          type="submit"
+          disabled={pending}
+          className="inline-flex items-center gap-1.5 rounded-lg bg-foreground px-3 py-1.5 text-xs font-medium text-background transition hover:opacity-90 disabled:opacity-50"
+        >
+          <Send className="h-3.5 w-3.5" />
+          {pending ? "Saving…" : "Save"}
+        </button>
+        <button
+          type="button"
+          onClick={onCancel}
+          disabled={pending}
+          className="inline-flex items-center gap-1 rounded-lg border border-border px-2.5 py-1.5 text-xs text-muted transition-colors hover:bg-surface-2 disabled:opacity-50"
+        >
+          <X className="h-3.5 w-3.5" />
+        </button>
+      </div>
+      {state.error && <p className="text-xs text-red-500">{state.error}</p>}
+    </form>
   );
 }
 

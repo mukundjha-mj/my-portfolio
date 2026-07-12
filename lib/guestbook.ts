@@ -74,6 +74,40 @@ export async function addReply(
   return { success: true };
 }
 
+export async function editEntry(
+  _prev: GuestbookState,
+  formData: FormData,
+): Promise<GuestbookState> {
+  const user = await currentUser();
+  if (!user) {
+    return { error: "You must be signed in to edit." };
+  }
+
+  const entryId = (formData.get("entryId") as string | null) ?? "";
+  const body = ((formData.get("message") as string | null) ?? "").trim();
+  if (!entryId) return { error: "Missing note." };
+  if (!body) return { error: "Message can't be empty." };
+  if (body.length > 500) return { error: "Message is too long (500 max)." };
+
+  const entry = await prisma.guestbookEntry.findUnique({
+    where: { id: entryId },
+    select: { id: true, authorId: true, deleted: true },
+  });
+  if (!entry || entry.deleted) return { error: "That note no longer exists." };
+  // Only the original author can edit — never someone else's words.
+  if (entry.authorId !== user.id) {
+    return { error: "You can only edit your own messages." };
+  }
+
+  await prisma.guestbookEntry.update({
+    where: { id: entryId },
+    data: { body, editedAt: new Date() },
+  });
+
+  revalidatePath("/guestbook");
+  return { success: true };
+}
+
 export async function deleteEntry(entryId: string): Promise<GuestbookState> {
   const user = await currentUser();
   if (!user) {

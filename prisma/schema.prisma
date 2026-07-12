@@ -24,6 +24,7 @@ model GuestbookEntry {
   id             String           @id @default(cuid())
   body           String           @db.Text
   createdAt      DateTime         @default(now())
+  editedAt       DateTime?
   authorId       String
   authorName     String?
   authorImage    String?
