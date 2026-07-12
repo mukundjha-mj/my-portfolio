@@ -5,6 +5,10 @@ import { ArrowLeft } from "lucide-react";
 import { getPostSlugs, getPostMeta, formatDate } from "@/lib/blog";
 import { profile } from "@/content/profile";
 
+// Only render posts that actually exist in content/blog. Any other slug 404s
+// at the routing layer (no hardcoded/sample posts).
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return getPostSlugs().map((slug) => ({ slug }));
 }

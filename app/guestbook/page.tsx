@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   description: "Sign in and leave a message.",
 };
 
+// Auth + DB reads depend on the request; never statically prerender.
+export const dynamic = "force-dynamic";
+
 export default async function GuestbookPage() {
   const configured = Boolean(
     process.env.DATABASE_URL && process.env.AUTH_SECRET,
@@ -59,13 +62,13 @@ async function GuestbookContent() {
         </section>
       </>
     );
-  } catch {
+  } catch (err) {
+    // Log the real error for the developer; show visitors a friendly, generic
+    // message instead of leaking DATABASE_URL / migration details.
+    console.error("Guestbook: failed to load entries", err);
     return (
-      <div className="rounded-xl border border-red-500/30 bg-red-500/5 p-5 text-sm text-muted">
-        Couldn&apos;t reach the database. Check your{" "}
-        <code className="font-mono text-foreground">DATABASE_URL</code> and that
-        migrations have run (
-        <code className="font-mono">bunx prisma migrate dev</code>).
+      <div className="rounded-xl border border-border bg-surface/40 p-5 text-sm text-muted">
+        The guestbook is taking a short break — please check back in a moment.
       </div>
     );
   }
