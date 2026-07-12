@@ -1,10 +1,12 @@
+import Link from "next/link";
 import { ExternalLink, Box } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import type { Project } from "@/content/profile";
 
 // `compact` (home preview) matches the reference: clickable card, name +
 // one-line description, no tags/links shown. Full mode (/projects) shows
-// tags and explicit Code/Live links.
+// tags and explicit Code/Live links. Both variants click through to the
+// project's own /projects/[slug] detail page, not straight out to GitHub.
 export function ProjectCard({
   project,
   compact = false,
@@ -12,13 +14,12 @@ export function ProjectCard({
   project: Project;
   compact?: boolean;
 }) {
+  const href = `/projects/${project.slug}`;
+
   if (compact) {
-    const href = project.url ?? project.repo;
     return (
-      <a
+      <Link
         href={href}
-        target="_blank"
-        rel="noopener noreferrer"
         className="group flex items-center gap-4 rounded-xl border border-border bg-surface/40 p-5 transition-colors hover:border-border-strong hover:bg-surface-2/60"
       >
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-2">
@@ -32,20 +33,27 @@ export function ProjectCard({
             {project.description}
           </p>
         </div>
-      </a>
+      </Link>
     );
   }
 
   return (
     <div className="group flex items-start gap-4 rounded-xl border border-border bg-surface/40 p-5 transition-colors hover:border-border-strong hover:bg-surface-2/60">
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-2">
+      <Link
+        href={href}
+        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-2"
+      >
         <Box className="h-5 w-5 text-muted" />
-      </div>
+      </Link>
       <div className="min-w-0 flex-1">
-        <h3 className="text-sm font-semibold text-foreground">{project.name}</h3>
-        <p className="mt-1 text-sm leading-6 text-muted">
-          {project.description}
-        </p>
+        <Link href={href} className="block">
+          <h3 className="text-sm font-semibold text-foreground">
+            {project.name}
+          </h3>
+          <p className="mt-1 text-sm leading-6 text-muted">
+            {project.description}
+          </p>
+        </Link>
 
         {project.tags && project.tags.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-1.5">

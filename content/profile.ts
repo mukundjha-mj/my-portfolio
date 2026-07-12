@@ -28,10 +28,14 @@ export type Education = {
 
 export type Project = {
   name: string;
+  slug: string; // drives /projects/[slug]
   description: string;
+  longDescription?: string; // extended write-up shown on the detail page
   url?: string;
   repo?: string;
+  youtubeUrl?: string;
   logo?: string; // path in /public, optional
+  coverImage?: string; // path in /public, optional — shown on the detail page
   tags?: string[];
   featured?: boolean;
 };
@@ -140,15 +144,18 @@ export const profile = {
   projects: [
     {
       name: "CuraNet — Healthcare Records & Consent Management",
+      slug: "curanet",
       description:
         "An EHR platform supporting 12 core workflows, 25+ REST endpoints, RBAC, and PostgreSQL-backed patient records with a 15+ table relational schema via Prisma. Includes consent-based access control (grant, revoke, time-limit) with full audit logging and a Universal Health ID for portable records across providers.",
       url: "http://curanet.in/",
       repo: "https://github.com/mukundjha-mj/curanet-backend",
+      coverImage: "/curanet.png",
       tags: ["Node.js", "Express", "TypeScript", "React", "PostgreSQL", "Prisma", "JWT"],
       featured: true,
     },
     {
       name: "Microservices Uber Backend",
+      slug: "microservices-uber-backend",
       description:
         "A scalable ride-hailing backend built with a microservices architecture — secure JWT auth, trip booking workflows, and driver–passenger matching with real-time inter-service communication via message queues. Database indexing and query optimization cut API response time by 35%.",
       repo: "https://github.com/mukundjha-mj/Microservices-Uber-Backend",
@@ -157,6 +164,7 @@ export const profile = {
     },
     {
       name: "NetShield — Network Control & Website Blocking Tool",
+      slug: "netshield",
       description:
         "A system-level network filtering tool that blocks distracting websites using domain- and keyword-based rules across HTTP/HTTPS traffic. Built a local proxy server and DNS filter in Node.js to inspect requests and enforce rules in real time, with a REST API and CLI for ban/unban workflows and Windows proxy automation.",
       repo: "https://github.com/mukundjha-mj/netshield",
