@@ -26,7 +26,7 @@ export function GuestbookList({
           </ul>
 
           {e.replies.length > 0 && (
-            <ul className="mt-3 ml-11 space-y-3 border-l border-border pl-4">
+            <ul className="mt-3 ml-6 space-y-3 border-l border-border pl-3 sm:ml-11 sm:pl-4">
               {e.replies.map((r) => (
                 <GuestbookEntryItem
                   key={r.id}

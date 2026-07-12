@@ -6,14 +6,18 @@ export function Hero() {
   return (
     <section className="w-full">
       {/* Name + avatar */}
-      <div className="flex items-center gap-5 sm:gap-6">
-        <Avatar size={100} priority className="h-24 w-24 sm:h-28 sm:w-28" />
-        <div>
-          <h1 className="flex flex-wrap items-center gap-x-2 gap-y-1 font-space text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
+      <div className="flex items-center gap-4 sm:gap-6">
+        <Avatar
+          size={112}
+          priority
+          className="h-16 w-16 shrink-0 sm:h-24 sm:w-24 md:h-28 md:w-28"
+        />
+        <div className="min-w-0">
+          <h1 className="flex flex-wrap items-center gap-x-2 gap-y-1 font-space text-2xl font-medium tracking-tight text-foreground sm:text-3xl md:text-4xl">
             <span className="font-normal text-muted">Hi, I&apos;m</span>
             <span className="font-semibold">{profile.firstName}</span>
             {profile.verified && (
-              <BadgeCheck className="h-6 w-6 fill-accent text-background" />
+              <BadgeCheck className="h-5 w-5 shrink-0 fill-accent text-background sm:h-6 sm:w-6" />
             )}
           </h1>
           <p className="mt-2 max-w-md font-mono text-sm leading-6 text-muted">

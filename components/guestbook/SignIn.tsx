@@ -34,8 +34,17 @@ export function SignIn() {
         disabled={!isLoaded || loading}
         className="flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-surface-2 disabled:opacity-60"
       >
-        <FcGoogle className="h-4 w-4" />
-        {loading ? "Redirecting…" : "Sign in with Google to leave a message"}
+        <FcGoogle className="h-4 w-4 shrink-0" />
+        {loading ? (
+          "Redirecting…"
+        ) : (
+          <>
+            <span className="sm:hidden">Sign in with Google</span>
+            <span className="hidden sm:inline">
+              Sign in with Google to leave a message
+            </span>
+          </>
+        )}
       </button>
     </div>
   );

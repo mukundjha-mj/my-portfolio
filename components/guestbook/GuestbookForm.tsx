@@ -23,8 +23,8 @@ export function GuestbookForm({ user }: Props) {
 
   return (
     <div className="rounded-xl border border-border bg-surface/40 p-5">
-      <div className="mb-3 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+        <div className="flex min-w-0 items-center gap-2">
           {user.image && (
             <Image
               src={user.image}
@@ -34,7 +34,7 @@ export function GuestbookForm({ user }: Props) {
               className="rounded-full ring-1 ring-border"
             />
           )}
-          <span className="text-sm text-muted">
+          <span className="min-w-0 truncate text-sm text-muted">
             Signed in as{" "}
             <span className="font-medium text-foreground">
               {user.name ?? "you"}
