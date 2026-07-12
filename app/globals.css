@@ -97,5 +97,17 @@ h4 {
   scrollbar-color: var(--border-strong) transparent;
 }
 
+/* Tailwind's preflight resets buttons to `cursor: default` — restore the
+   hand cursor so every clickable button feels interactive, matching links. */
+button:not(:disabled),
+[role="button"]:not(:disabled) {
+  cursor: pointer;
+}
+
+button:disabled,
+[role="button"][aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
 /* Scroll + load entrance animations are handled by <Reveal> (JS-driven,
    IntersectionObserver) so they can trigger as sections enter the viewport. */
