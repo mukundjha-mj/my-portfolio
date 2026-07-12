@@ -30,7 +30,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     code: (props) => (
       <code
-        className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-sm text-foreground"
+        className="break-words rounded bg-surface-2 px-1.5 py-0.5 font-mono text-sm text-foreground"
         {...props}
       />
     ),

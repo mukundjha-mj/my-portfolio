@@ -60,12 +60,12 @@ export function GuestbookForm({ user }: Props) {
             required
             autoComplete="off"
             placeholder="Leave a message…"
-            className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none placeholder:text-faint focus:border-border-strong"
+            className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none placeholder:text-faint focus:border-border-strong"
           />
           <button
             type="submit"
             disabled={pending}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition hover:opacity-90 disabled:opacity-50"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition hover:opacity-90 disabled:opacity-50"
           >
             <Send className="h-3.5 w-3.5" />
             {pending ? "Posting…" : "Post"}

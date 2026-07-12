@@ -13,7 +13,7 @@ export function Education() {
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-2">
               <GraduationCap className="h-4 w-4 text-muted" />
             </div>
-            <div className="flex flex-1 flex-wrap items-baseline justify-between gap-x-3">
+            <div className="flex min-w-0 flex-1 flex-wrap items-baseline justify-between gap-x-3">
               <div>
                 <p className="text-sm font-semibold text-foreground">
                   {ed.school}

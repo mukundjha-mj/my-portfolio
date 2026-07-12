@@ -215,12 +215,12 @@ function EditForm({
           maxLength={500}
           required
           autoComplete="off"
-          className="flex-1 rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground outline-none placeholder:text-faint focus:border-border-strong"
+          className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground outline-none placeholder:text-faint focus:border-border-strong"
         />
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-foreground px-3 py-1.5 text-xs font-medium text-background transition hover:opacity-90 disabled:opacity-50"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-foreground px-3 py-1.5 text-xs font-medium text-background transition hover:opacity-90 disabled:opacity-50"
         >
           <Send className="h-3.5 w-3.5" />
           {pending ? "Saving…" : "Save"}
@@ -229,7 +229,7 @@ function EditForm({
           type="button"
           onClick={onCancel}
           disabled={pending}
-          className="inline-flex items-center gap-1 rounded-lg border border-border px-2.5 py-1.5 text-xs text-muted transition-colors hover:bg-surface-2 disabled:opacity-50"
+          className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-border px-2.5 py-1.5 text-xs text-muted transition-colors hover:bg-surface-2 disabled:opacity-50"
         >
           <X className="h-3.5 w-3.5" />
         </button>
@@ -272,12 +272,12 @@ function ReplyForm({
           required
           autoComplete="off"
           placeholder="Write a reply…"
-          className="flex-1 rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground outline-none placeholder:text-faint focus:border-border-strong"
+          className="min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground outline-none placeholder:text-faint focus:border-border-strong"
         />
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-foreground px-3 py-1.5 text-xs font-medium text-background transition hover:opacity-90 disabled:opacity-50"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-foreground px-3 py-1.5 text-xs font-medium text-background transition hover:opacity-90 disabled:opacity-50"
         >
           <Send className="h-3.5 w-3.5" />
           {pending ? "Sending…" : "Reply"}

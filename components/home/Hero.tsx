@@ -55,11 +55,11 @@ export function Hero() {
           <MapPin className="h-4 w-4 shrink-0 text-faint" />
           <span>{profile.location}</span>
         </li>
-        <li className="flex items-center gap-2">
+        <li className="flex min-w-0 items-center gap-2">
           <Mail className="h-4 w-4 shrink-0 text-faint" />
           <a
             href={`mailto:${profile.email}`}
-            className="hover:text-foreground"
+            className="min-w-0 break-all hover:text-foreground"
           >
             {profile.email}
           </a>
