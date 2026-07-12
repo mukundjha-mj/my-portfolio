@@ -7,6 +7,7 @@ import { SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa6";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { LiveActivity } from "./LiveActivity";
 import { Avatar } from "@/components/ui/Avatar";
 import { profile } from "@/content/profile";
 
@@ -78,6 +79,7 @@ export function Navbar() {
         <div className="flex items-center gap-0.5 pr-1">
           {/* Socials + theme toggle stay visible on desktop; hidden on
               mobile where they live inside the dropdown instead. */}
+          <LiveActivity className="hidden sm:flex" />
           <a
             href={profile.socials.github}
             target="_blank"
@@ -137,7 +139,8 @@ export function Navbar() {
               ))}
             </ul>
             <div className="mx-2 my-1.5 h-px bg-border" />
-            <div className="flex items-center gap-1 px-2 py-1">
+            <div className="flex flex-wrap items-center gap-1 px-2 py-1">
+              <LiveActivity className="flex" />
               <a
                 href={profile.socials.github}
                 target="_blank"

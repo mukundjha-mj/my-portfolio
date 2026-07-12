@@ -74,6 +74,15 @@ export const profile = {
   contributions: { year: 2026 },
   githubUsername: "mukundjha-mj",
 
+  // ── Live activity ────────────────────────────────────────────
+  // Powers the navbar's "live" pill (VS Code / Spotify / etc. via
+  // Discord Rich Presence, aggregated through Lanyard: https://api.lanyard.rest).
+  // Get your ID: Discord Settings → Advanced → enable Developer Mode,
+  // then right-click your profile → Copy User ID. Also join the Lanyard
+  // Discord server (discord.gg/lanyard) so it can see your presence.
+  // Leave empty to hide the pill entirely.
+  discordId: "917393203605434408",
+
   // ── Socials ─────────────────────────────────────────────────
   socials: {
     github: "https://github.com/mukundjha-mj",
