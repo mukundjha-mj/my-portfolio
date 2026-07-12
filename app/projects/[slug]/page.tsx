@@ -45,28 +45,7 @@ export default async function ProjectDetailPage({
   const project = getProject(slug);
   if (!project) notFound();
 
-  type ActionLink = {
-    href: string;
-    label: string;
-    Icon: React.ComponentType<{ className?: string }>;
-  };
-  const links: ActionLink[] = [
-    project.repo && {
-      href: project.repo,
-      label: "View on GitHub",
-      Icon: SiGithub,
-    },
-    project.url && {
-      href: project.url,
-      label: "Live site",
-      Icon: ExternalLink,
-    },
-    project.youtubeUrl && {
-      href: project.youtubeUrl,
-      label: "View on YouTube",
-      Icon: SiYoutube,
-    },
-  ].filter((link): link is ActionLink => Boolean(link));
+  const hasLinks = Boolean(project.repo || project.url || project.youtubeUrl);
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-8 px-4 py-10 sm:px-6 sm:py-12">
@@ -105,14 +84,26 @@ export default async function ProjectDetailPage({
         </div>
       </Reveal>
 
-      {links.length > 0 && (
+      {hasLinks && (
         <Reveal delay={100} className="flex flex-wrap gap-3">
-          {links.map(({ href, label, Icon }) => (
-            <LinkButton key={href} href={href} external>
-              <Icon className="h-4 w-4" />
-              {label}
+          {project.repo && (
+            <LinkButton href={project.repo} external>
+              <SiGithub className="h-4 w-4" />
+              View on GitHub
             </LinkButton>
-          ))}
+          )}
+          {project.url && (
+            <LinkButton href={project.url} external>
+              <ExternalLink className="h-4 w-4" />
+              Live site
+            </LinkButton>
+          )}
+          {project.youtubeUrl && (
+            <LinkButton href={project.youtubeUrl} external>
+              <SiYoutube className="h-4 w-4" />
+              View on YouTube
+            </LinkButton>
+          )}
         </Reveal>
       )}
 
