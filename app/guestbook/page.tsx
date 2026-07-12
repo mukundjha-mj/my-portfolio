@@ -68,7 +68,7 @@ async function GuestbookContent() {
               {entries.length} signed
             </span>
           </div>
-          <GuestbookList entries={entries} />
+          <GuestbookList entries={entries} signedIn={Boolean(user)} />
         </section>
       </>
     );

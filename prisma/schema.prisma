@@ -15,13 +15,26 @@ datasource db {
 // The poster's identity is denormalized onto the entry (Clerk user id +
 // a snapshot of their name/avatar at post time) — a guestbook entry is a
 // point-in-time note, so it doesn't need to track live profile changes.
+//
+// Replies are single-level threads via `parentId` (a reply can't itself be
+// replied to — keeps the UI simple). Deletes are soft (Reddit-style): the
+// row stays so reply threads don't break, but the body is replaced and
+// `deletedByName` records who removed it.
 model GuestbookEntry {
-  id          String   @id @default(cuid())
-  body        String   @db.Text
-  createdAt   DateTime @default(now())
-  authorId    String
-  authorName  String?
-  authorImage String?
+  id             String           @id @default(cuid())
+  body           String           @db.Text
+  createdAt      DateTime         @default(now())
+  authorId       String
+  authorName     String?
+  authorImage    String?
+
+  deleted        Boolean          @default(false)
+  deletedByName  String?
+
+  parentId       String?
+  parent         GuestbookEntry?  @relation("Replies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies        GuestbookEntry[] @relation("Replies")
 
   @@index([createdAt])
+  @@index([parentId])
 }

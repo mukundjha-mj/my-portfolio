@@ -35,9 +35,82 @@ export async function addEntry(
   return { success: true };
 }
 
+export async function addReply(
+  _prev: GuestbookState,
+  formData: FormData,
+): Promise<GuestbookState> {
+  const user = await currentUser();
+  if (!user) {
+    return { error: "You must be signed in to reply." };
+  }
+
+  const parentId = (formData.get("parentId") as string | null) ?? "";
+  const body = ((formData.get("message") as string | null) ?? "").trim();
+  if (!parentId) return { error: "Missing parent note." };
+  if (!body) return { error: "Reply can't be empty." };
+  if (body.length > 500) return { error: "Reply is too long (500 max)." };
+
+  const parent = await prisma.guestbookEntry.findUnique({
+    where: { id: parentId },
+    select: { id: true, parentId: true },
+  });
+  if (!parent) return { error: "That note no longer exists." };
+
+  // Keep threading single-level: replying to a reply attaches to its
+  // top-level parent instead of nesting further.
+  const targetParentId = parent.parentId ?? parent.id;
+
+  await prisma.guestbookEntry.create({
+    data: {
+      body,
+      authorId: user.id,
+      authorName: user.fullName ?? user.username ?? null,
+      authorImage: user.imageUrl,
+      parentId: targetParentId,
+    },
+  });
+
+  revalidatePath("/guestbook");
+  return { success: true };
+}
+
+export async function deleteEntry(entryId: string): Promise<GuestbookState> {
+  const user = await currentUser();
+  if (!user) {
+    return { error: "You must be signed in to delete." };
+  }
+
+  const entry = await prisma.guestbookEntry.findUnique({
+    where: { id: entryId },
+    select: { id: true, deleted: true },
+  });
+  if (!entry) return { error: "That note no longer exists." };
+  if (entry.deleted) return { success: true };
+
+  // Soft delete (Reddit-style): the row stays — so reply threads don't
+  // break — but the body is hidden and replaced with a "deleted by" note
+  // in the UI. Any signed-in guestbook user can delete any entry.
+  await prisma.guestbookEntry.update({
+    where: { id: entryId },
+    data: {
+      deleted: true,
+      deletedByName: user.fullName ?? user.username ?? "someone",
+    },
+  });
+
+  revalidatePath("/guestbook");
+  return { success: true };
+}
+
 export async function getEntries() {
   return prisma.guestbookEntry.findMany({
+    where: { parentId: null },
     orderBy: { createdAt: "desc" },
     take: 100,
+    include: {
+      replies: {
+        orderBy: { createdAt: "asc" },
+      },
+    },
   });
 }
