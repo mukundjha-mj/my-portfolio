@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import { UserRound, Reply as ReplyIcon, Trash2, Send } from "lucide-react";
 import { addReply, deleteEntry, type GuestbookState } from "@/lib/guestbook";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 
 export type Entry = {
   id: string;
@@ -66,18 +67,19 @@ export function GuestbookEntryItem({
 }) {
   const { user } = useUser();
   const [replying, setReplying] = useState(false);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [deleted, setDeleted] = useState(entry.deleted);
   const [deletedByName, setDeletedByName] = useState(entry.deletedByName);
   const [isDeleting, startDelete] = useTransition();
 
-  function handleDelete() {
-    if (!window.confirm("Delete this message? This can't be undone.")) return;
+  function confirmDelete() {
     startDelete(async () => {
       const result = await deleteEntry(entry.id);
       if (!result.error) {
         setDeleted(true);
         setDeletedByName(user?.fullName ?? user?.username ?? "someone");
       }
+      setConfirmingDelete(false);
     });
   }
 
@@ -118,7 +120,7 @@ export function GuestbookEntryItem({
             )}
             <button
               type="button"
-              onClick={handleDelete}
+              onClick={() => setConfirmingDelete(true)}
               disabled={isDeleting}
               className="inline-flex items-center gap-1 text-xs text-faint transition-colors hover:text-red-500 disabled:opacity-50"
             >
@@ -132,6 +134,16 @@ export function GuestbookEntryItem({
           <ReplyForm parentId={entry.id} onDone={() => setReplying(false)} />
         )}
       </div>
+
+      <ConfirmDialog
+        open={confirmingDelete}
+        title="Delete this message?"
+        description="This can't be undone — it'll be replaced with a 'deleted' notice."
+        confirmLabel="Delete"
+        pending={isDeleting}
+        onConfirm={confirmDelete}
+        onCancel={() => setConfirmingDelete(false)}
+      />
     </li>
   );
 }
