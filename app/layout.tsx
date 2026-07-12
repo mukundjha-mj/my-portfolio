@@ -3,8 +3,6 @@ import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { profile } from "@/content/profile";
 
 const geistSans = Geist({
@@ -66,11 +64,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
       >
         <body className="min-h-full flex flex-col bg-background text-foreground">
-          <ThemeProvider>
-            <Navbar />
-            <main className="flex-1 w-full">{children}</main>
-            <Footer />
-          </ThemeProvider>
+          <ThemeProvider>{children}</ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

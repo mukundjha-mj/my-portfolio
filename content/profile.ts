@@ -61,11 +61,11 @@ export const profile = {
   currentRole: "Web Developer Intern",
   currentCompany: "The Dark Store India",
   currentCompanyUrl: "#",
-  location: "Vellore, India",
+  location: "Noida, India",
   email: "mukundjha204@gmail.com",
   phone: "+91 82944 95929",
   // Optional highlight line (set to null to hide). e.g. a ranking or credential.
-  highlight: null as { label: string; url: string } | null,
+  highlight: { label: "Resume", url: "/resume" } as { label: string; url: string } | null,
   schoolLine: "MCA • VIT Vellore (2026)",
 
   // ── Contribution graph ──────────────────────────────────────

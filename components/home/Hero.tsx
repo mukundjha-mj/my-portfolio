@@ -1,4 +1,4 @@
-import { BadgeCheck, MapPin, Mail, GraduationCap, Code2, Trophy } from "lucide-react";
+import { BadgeCheck, MapPin, Mail, GraduationCap, Code2, FileText } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
 import { profile } from "@/content/profile";
 
@@ -66,7 +66,7 @@ export function Hero() {
         </li>
         {profile.highlight && (
           <li className="flex items-center gap-2">
-            <Trophy className="h-4 w-4 shrink-0 text-faint" />
+            <FileText className="h-4 w-4 shrink-0 text-faint" />
             <a
               href={profile.highlight.url}
               target="_blank"
