@@ -1,4 +1,5 @@
-// Prisma schema — Auth.js (NextAuth v5) models + Guestbook.
+// Prisma schema — Guestbook only. Auth is handled by Clerk (no local
+// User/Account/Session tables — see auth via @clerk/nextjs's `auth()`).
 // Provider is PostgreSQL (Neon/Supabase). Set DATABASE_URL in .env.
 
 generator client {
@@ -10,61 +11,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ── Auth.js models ────────────────────────────────────────────
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  guestbook     GuestbookEntry[]
-  createdAt     DateTime  @default(now())
-}
-
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
-
 // ── Guestbook ─────────────────────────────────────────────────
+// The poster's identity is denormalized onto the entry (Clerk user id +
+// a snapshot of their name/avatar at post time) — a guestbook entry is a
+// point-in-time note, so it doesn't need to track live profile changes.
 model GuestbookEntry {
-  id        String   @id @default(cuid())
-  body      String   @db.Text
-  createdAt DateTime @default(now())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String   @id @default(cuid())
+  body        String   @db.Text
+  createdAt   DateTime @default(now())
+  authorId    String
+  authorName  String?
+  authorImage String?
 
   @@index([createdAt])
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { auth } from "@/auth";
+import { currentUser } from "@clerk/nextjs/server";
 import { getEntries } from "@/lib/guestbook";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { GuestbookForm } from "@/components/guestbook/GuestbookForm";
@@ -17,9 +17,10 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function GuestbookPage() {
-  const configured = Boolean(
-    process.env.DATABASE_URL && process.env.AUTH_SECRET,
-  );
+  // Clerk auto-provisions a temporary dev instance when its keys are unset
+  // (local dev only), so we only gate the guestbook on having a database —
+  // Clerk surfaces its own errors if it's genuinely unconfigured elsewhere.
+  const configured = Boolean(process.env.DATABASE_URL);
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-8 px-4 py-10 sm:px-6 sm:py-12">
@@ -44,10 +45,19 @@ export default async function GuestbookPage() {
 
 async function GuestbookContent() {
   try {
-    const [session, entries] = await Promise.all([auth(), getEntries()]);
+    const [user, entries] = await Promise.all([currentUser(), getEntries()]);
     return (
       <>
-        {session?.user ? <GuestbookForm user={session.user} /> : <SignIn />}
+        {user ? (
+          <GuestbookForm
+            user={{
+              name: user.fullName ?? user.username,
+              image: user.imageUrl,
+            }}
+          />
+        ) : (
+          <SignIn />
+        )}
 
         <section>
           <div className="flex items-baseline justify-between">
@@ -64,7 +74,7 @@ async function GuestbookContent() {
     );
   } catch (err) {
     // Log the real error for the developer; show visitors a friendly, generic
-    // message instead of leaking DATABASE_URL / migration details.
+    // message instead of leaking internal details.
     console.error("Guestbook: failed to load entries", err);
     return (
       <div className="rounded-xl border border-border bg-surface/40 p-5 text-sm text-muted">
@@ -81,11 +91,12 @@ function SetupNotice() {
       <p className="mt-2">
         To enable sign-in and posting, copy{" "}
         <code className="font-mono text-foreground">.env.example</code> to{" "}
-        <code className="font-mono text-foreground">.env</code> and fill in your
-        Postgres <code className="font-mono">DATABASE_URL</code>,{" "}
-        <code className="font-mono">AUTH_SECRET</code>, and the GitHub/Google
-        OAuth credentials, then run{" "}
-        <code className="font-mono text-foreground">bunx prisma migrate dev</code>.
+        <code className="font-mono text-foreground">.env</code>, fill in your
+        Postgres <code className="font-mono">DATABASE_URL</code>, and add your
+        Clerk keys (<code className="font-mono">NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY</code>,{" "}
+        <code className="font-mono">CLERK_SECRET_KEY</code>) from{" "}
+        <code className="font-mono text-foreground">dashboard.clerk.com</code>{" "}
+        — enable GitHub and Google under SSO Connections.
       </p>
     </div>
   );

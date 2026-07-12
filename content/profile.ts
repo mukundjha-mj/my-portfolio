@@ -38,11 +38,11 @@ export type Project = {
 
 export const profile = {
   // ── Identity ────────────────────────────────────────────────
-  name: "Balmukund Jha",
+  name: " Jha",
   firstName: "Balmukund",
   role: "Backend & Full-Stack Developer",
   verified: true,
-  siteUrl: "https://balmukundjha.dev",
+  siteUrl: "https://mukundjha.dev",
   metaDescription:
     "Backend-focused full-stack developer building scalable systems, APIs, and products that ship.",
 

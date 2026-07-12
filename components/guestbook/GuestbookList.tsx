@@ -5,7 +5,8 @@ type Entry = {
   id: string;
   body: string;
   createdAt: Date;
-  user: { name: string | null; image: string | null };
+  authorName: string | null;
+  authorImage: string | null;
 };
 
 function timeAgo(date: Date): string {
@@ -42,10 +43,10 @@ export function GuestbookList({ entries }: { entries: Entry[] }) {
     <ul className="mt-6 space-y-4">
       {entries.map((e) => (
         <li key={e.id} className="flex gap-3">
-          {e.user.image ? (
+          {e.authorImage ? (
             <Image
-              src={e.user.image}
-              alt={e.user.name ?? "User"}
+              src={e.authorImage}
+              alt={e.authorName ?? "User"}
               width={32}
               height={32}
               className="h-8 w-8 rounded-full ring-1 ring-border"
@@ -58,7 +59,7 @@ export function GuestbookList({ entries }: { entries: Entry[] }) {
           <div className="min-w-0 flex-1">
             <div className="flex items-baseline gap-2">
               <span className="text-sm font-medium text-foreground">
-                {e.user.name ?? "Anonymous"}
+                {e.authorName ?? "Anonymous"}
               </span>
               <span className="font-mono text-[11px] text-faint">
                 {timeAgo(new Date(e.createdAt))}

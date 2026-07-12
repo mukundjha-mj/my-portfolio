@@ -2,8 +2,9 @@
 
 import { useActionState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { SignOutButton } from "@clerk/nextjs";
 import { LogOut, Send } from "lucide-react";
-import { addEntry, signOutAction, type GuestbookState } from "@/lib/guestbook";
+import { addEntry, type GuestbookState } from "@/lib/guestbook";
 
 type Props = {
   user: { name?: string | null; image?: string | null };
@@ -40,15 +41,15 @@ export function GuestbookForm({ user }: Props) {
             </span>
           </span>
         </div>
-        <form action={signOutAction}>
+        <SignOutButton redirectUrl="/guestbook">
           <button
-            type="submit"
+            type="button"
             className="inline-flex items-center gap-1 text-xs text-faint transition-colors hover:text-foreground"
           >
             <LogOut className="h-3.5 w-3.5" />
             Sign out
           </button>
-        </form>
+        </SignOutButton>
       </div>
 
       <form ref={formRef} action={formAction} className="flex flex-col gap-2">

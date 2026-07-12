@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
       { protocol: "https", hostname: "images.unsplash.com" },
+      // Clerk proxies/serves user avatars (GitHub/Google profile photos) from this host.
+      { protocol: "https", hostname: "img.clerk.com" },
     ],
   },
 };

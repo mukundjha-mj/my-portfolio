@@ -1,8 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { currentUser } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
-import { auth, signIn, signOut } from "@/auth";
 
 export type GuestbookState = {
   error?: string;
@@ -13,8 +13,8 @@ export async function addEntry(
   _prev: GuestbookState,
   formData: FormData,
 ): Promise<GuestbookState> {
-  const session = await auth();
-  if (!session?.user?.id) {
+  const user = await currentUser();
+  if (!user) {
     return { error: "You must be signed in to post." };
   }
 
@@ -23,7 +23,12 @@ export async function addEntry(
   if (body.length > 500) return { error: "Message is too long (500 max)." };
 
   await prisma.guestbookEntry.create({
-    data: { body, userId: session.user.id },
+    data: {
+      body,
+      authorId: user.id,
+      authorName: user.fullName ?? user.username ?? null,
+      authorImage: user.imageUrl,
+    },
   });
 
   revalidatePath("/guestbook");
@@ -34,18 +39,5 @@ export async function getEntries() {
   return prisma.guestbookEntry.findMany({
     orderBy: { createdAt: "desc" },
     take: 100,
-    include: { user: { select: { name: true, image: true } } },
   });
-}
-
-export async function signInGitHub() {
-  await signIn("github", { redirectTo: "/guestbook" });
-}
-
-export async function signInGoogle() {
-  await signIn("google", { redirectTo: "/guestbook" });
-}
-
-export async function signOutAction() {
-  await signOut({ redirectTo: "/guestbook" });
 }

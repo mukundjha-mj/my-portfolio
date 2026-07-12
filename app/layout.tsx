@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
@@ -49,19 +50,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      data-scroll-behavior="smooth"
-      suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
+    <ClerkProvider
+      appearance={{
+        variables: {
+          colorPrimary: "#3b82f6",
+          colorBackground: "#171717",
+          borderRadius: "0.75rem",
+        },
+      }}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        <ThemeProvider>
-          <Navbar />
-          <main className="flex-1 w-full">{children}</main>
-          <Footer />
-        </ThemeProvider>
-      </body>
-    </html>
+      <html
+        lang="en"
+        data-scroll-behavior="smooth"
+        suppressHydrationWarning
+        className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      >
+        <body className="min-h-full flex flex-col bg-background text-foreground">
+          <ThemeProvider>
+            <Navbar />
+            <main className="flex-1 w-full">{children}</main>
+            <Footer />
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
