@@ -82,6 +82,10 @@ export const profile = {
     bookCall: "mailto:mukundjha204@gmail.com",
   },
 
+  // Cal.com event slug, e.g. "your-username/30min" — powers the
+  // "Book a call" popup. Replace with your real Cal.com link.
+  calLink: "mukundjha-mj/30min",
+
   // ── Skills / tech stack ─────────────────────────────────────
   skills: [
     "JavaScript",

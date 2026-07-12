@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Avatar } from "@/components/ui/Avatar";
+import { CalBookButton } from "@/components/ui/CalBookButton";
 import { profile } from "@/content/profile";
 
 const EXPLORE = [
@@ -14,7 +15,6 @@ const CONNECT = [
   { href: profile.socials.github, label: "GitHub" },
   { href: profile.socials.linkedin, label: "LinkedIn" },
   { href: profile.socials.email, label: "Email" },
-  { href: profile.socials.bookCall, label: "Book a call" },
 ];
 
 export function Footer() {
@@ -86,6 +86,14 @@ export function Footer() {
                     </a>
                   </li>
                 ))}
+                <li>
+                  <CalBookButton
+                    variant="link"
+                    className="p-0 text-left text-sm font-normal"
+                  >
+                    Book a call
+                  </CalBookButton>
+                </li>
               </ul>
             </div>
           </div>

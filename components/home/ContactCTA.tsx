@@ -1,6 +1,7 @@
 import { Calendar } from "lucide-react";
 import { FaLinkedin } from "react-icons/fa6";
 import { LinkButton } from "@/components/ui/LinkButton";
+import { CalBookButton } from "@/components/ui/CalBookButton";
 import { profile } from "@/content/profile";
 
 export function ContactCTA() {
@@ -31,10 +32,10 @@ export function ContactCTA() {
         </p>
 
         <div className="mt-6 flex flex-wrap gap-3">
-          <LinkButton href={profile.socials.bookCall} variant="solid" external>
+          <CalBookButton variant="solid">
             <Calendar className="h-4 w-4" />
             Book a call
-          </LinkButton>
+          </CalBookButton>
           <LinkButton href={profile.socials.linkedin} variant="outline" external>
             <FaLinkedin className="h-4 w-4" />
             Message on LinkedIn
